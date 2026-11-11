@@ -1,42 +1,42 @@
 - name: needs-triage
-  color: fbca04
+  color: "fbca04"
   description: Filed, area not yet set
 - name: module:workspace
-  color: 1d76db
+  color: "1d76db"
   description: The app families see and touch
 - name: module:memory
-  color: 0e8a16
+  color: "0e8a16"
   description: Where the child's record is kept
 - name: module:brain
-  color: 5319e7
+  color: "5319e7"
   description: Riya's background thinking
 - name: module:workspace-api
-  color: c5def5
+  color: "c5def5"
   description: The link between the parts
 - name: quality
-  color: d4c5f9
+  color: "d4c5f9"
   description: Riya said something wrong or off
 - name: channels
-  color: fef2c0
+  color: "fef2c0"
   description: Calls, SMS or iMessage
 - name: website
-  color: e99695
+  color: "e99695"
   description: Pages outside the app
 - name: p0
-  color: b60205
+  color: "b60205"
   description: Do it now
 - name: p1
-  color: d93f0b
+  color: "d93f0b"
   description: Do it next
 - name: p2
-  color: fbca04
+  color: "fbca04"
   description: Do it later
 - name: needs-decision
-  color: 5319e7
+  color: "5319e7"
   description: Waiting on a product decision
 - name: needs-ba
-  color: 5319e7
+  color: "5319e7"
   description: Waiting on business input
 - name: good-first-issue
-  color: 7057ff
+  color: "7057ff"
   description: A safe place to start
