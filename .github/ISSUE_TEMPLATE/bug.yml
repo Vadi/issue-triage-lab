@@ -1,0 +1,56 @@
+name: Bug or problem
+description: Something in the app did not work as expected.
+title: ""
+labels: ["needs-triage"]
+body:
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where did you see this?
+      description: Pick the closest match. "Somewhere else / not sure" is a valid answer.
+      options:
+        - Getting started / onboarding
+        - Timeline
+        - Chat and messages
+        - Riya's replies
+        - Care circle
+        - Profile and settings
+        - Sign-in and phone number
+        - Photos, videos and voice notes
+        - Documents
+        - Riya noticed / needs you
+        - Phone calls and text messages
+        - App releases (TestFlight, Play Store)
+        - iOS app
+        - Android app
+        - Website / marketing site
+        - Somewhere else / not sure
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you saw, and what you expected instead.
+      placeholder: |
+        What happened:
+        What you expected:
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Tap ...
+        3. See ...
+    validations:
+      required: true
+  - type: upload
+    id: screenshots
+    attributes:
+      label: Screenshots or screen recording
+      description: Drag files here, or paste a link.
+    validations:
+      required: false

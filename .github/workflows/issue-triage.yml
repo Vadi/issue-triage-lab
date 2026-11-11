@@ -1,0 +1,90 @@
+name: Issue triage labels
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  area:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body ?? "";
+            const section = body
+              .split(/^### /m)
+              .find((s) => s.startsWith("Where did you see this?"));
+
+            if (!section) {
+              core.setFailed(
+                "No 'Where did you see this?' section. File the issue with one of the forms."
+              );
+              return;
+            }
+
+            const answer = section.split("\n").slice(1).join(" ").trim();
+
+            const map = {
+              "Getting started / onboarding": "module:workspace",
+              "Timeline": "module:workspace",
+              "Chat and messages": "module:workspace",
+              "Riya's replies": "module:workspace",
+              "Care circle": "module:workspace",
+              "Profile and settings": "module:workspace",
+              "Sign-in and phone number": "module:workspace",
+              "Photos, videos and voice notes": "module:workspace",
+              "Documents": "module:brain",
+              "Riya noticed / needs you": "module:workspace",
+              "Phone calls and text messages": "channels",
+              "App releases (TestFlight, Play Store)": "module:workspace",
+              "iOS app": "module:workspace",
+              "Android app": "module:workspace",
+              "Website / marketing site": "website"
+            };
+
+            const target = map[answer];
+
+            // "Somewhere else / not sure" is a valid answer: leave it for a human.
+            if (!target) {
+              core.info(`No automatic area for "${answer}"; leaving needs-triage.`);
+              return;
+            }
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.issue.number;
+
+            const current = context.payload.issue.labels.map((l) =>
+              typeof l === "string" ? l : l.name
+            );
+
+            const areaLabels = [
+              "module:workspace",
+              "module:memory",
+              "module:brain",
+              "module:workspace-api",
+              "channels",
+              "website"
+            ];
+
+            for (const label of current.filter((n) => areaLabels.includes(n))) {
+              if (label !== target) {
+                await github.rest.issues.removeLabel({ owner, repo, issue_number, name: label });
+              }
+            }
+
+            await github.rest.issues.addLabels({ owner, repo, issue_number, labels: [target] });
+
+            if (current.includes("needs-triage")) {
+              await github.rest.issues.removeLabel({
+                owner,
+                repo,
+                issue_number,
+                name: "needs-triage"
+              });
+            }
