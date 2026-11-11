@@ -1,6 +1,5 @@
 name: Bug or problem
 description: Something in the app did not work as expected.
-title: ""
 labels: ["needs-triage"]
 body:
   - type: dropdown

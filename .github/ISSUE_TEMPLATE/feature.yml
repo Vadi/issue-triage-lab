@@ -1,6 +1,5 @@
 name: Feature request
 description: Something we should add or change.
-title: ""
 labels: ["needs-triage"]
 body:
   - type: dropdown
