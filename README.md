@@ -50,6 +50,8 @@ label at all.
 
 ## Notes from the first run
 
+- **Never set `title: ""`.** GitHub rejects an empty title with "title must be of
+  type String and cannot be empty". Omit the key; it is optional.
 - **Quote label colours** in `labels.yml`. Unquoted, `5319e7` is parsed by YAML
   as the number 5,319 × 10⁷ and the sync fails.
 - **Issue types are org-level.** `type: Bug` only works in an organization repo;
