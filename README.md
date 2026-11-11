@@ -48,6 +48,16 @@ The convention under test:
 Priority is deliberately **not** automated. A bot guessing `p0` is worse than no
 label at all.
 
+## Notes from the first run
+
+- **Quote label colours** in `labels.yml`. Unquoted, `5319e7` is parsed by YAML
+  as the number 5,319 × 10⁷ and the sync fails.
+- **Issue types are org-level.** `type: Bug` only works in an organization repo;
+  this sandbox uses the form's `labels:` instead. In the real org repo, add
+  `type:` and drop the type label.
+- The workflow **swaps** the area label when the dropdown answer is edited, and
+  keeps unmapped answers in `needs-triage` rather than guessing.
+
 ## Reset
 
 Delete every issue in the repo and start again; the labels and workflows stay.
