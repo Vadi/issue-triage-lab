@@ -49,12 +49,6 @@ jobs:
 
             const target = map[answer];
 
-            // "Somewhere else / not sure" is a valid answer: leave it for a human.
-            if (!target) {
-              core.info(`No automatic area for "${answer}"; leaving needs-triage.`);
-              return;
-            }
-
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const issue_number = context.issue.number;
@@ -62,6 +56,21 @@ jobs:
             const current = context.payload.issue.labels.map((l) =>
               typeof l === "string" ? l : l.name
             );
+
+            // "Somewhere else / not sure" is a valid answer: keep it in the
+            // human triage queue rather than guessing.
+            if (!target) {
+              if (!current.includes("needs-triage")) {
+                await github.rest.issues.addLabels({
+                  owner,
+                  repo,
+                  issue_number,
+                  labels: ["needs-triage"]
+                });
+              }
+              core.info(`No automatic area for "${answer}"; left in needs-triage.`);
+              return;
+            }
 
             const areaLabels = [
               "module:workspace",
